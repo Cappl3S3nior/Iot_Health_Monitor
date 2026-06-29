@@ -1,0 +1,38 @@
+# Node.js
+node_modules/
+npm-debug.log*
+
+# Build
+dist/
+build/
+coverage/
+.cache/
+.vite/
+
+# Environment
+.env
+.env.*
+
+# VS Code / JetBrains
+.vscode/
+.idea/
+
+# Windows / macOS
+Thumbs.db
+.DS_Store
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+
+# AI Models
+*.pt
+*.pth
+
+# ESP32 / Arduino
+*.bin
+*.elf
+.pio/

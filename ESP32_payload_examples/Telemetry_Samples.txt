@@ -1,0 +1,13 @@
+Payload JSON
+{
+  "device_code": "esp32_01",
+  "timestamp": "2026-06-23T10:30:00+07:00",
+  "heart_rate": 78,
+  "spo2": 98,
+  "systolic_bp": 118,
+  "diastolic_bp": 76,
+  "body_temp": 36.8,
+  "ecg_value": 2048,
+  "signal_quality": 0.92,
+  "battery_level": 85
+}

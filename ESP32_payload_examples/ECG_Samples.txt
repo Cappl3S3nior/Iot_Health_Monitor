@@ -1,0 +1,7 @@
+Payload JSON
+{
+  "device_code": "esp32_01",
+  "timestamp": "2026-06-23T10:30:01+07:00",
+  "sampling_rate": 250,
+  "samples": [2048,2051,2044,2038,2050]
+}

@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>IoT Health Monitor Dashboard</title>
+        <link rel="stylesheet" href="style.css" />
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    </head>
+    <body>
+        <div class="app">
+            <header class="topbar">
+                <div>
+                    <h1>IoT Health Monitor Dashboard</h1>
+                    <div class="subtitle">
+                        Realtime monitor for ESP32 health telemetry
+                    </div>
+                </div>
+
+                <div class="topbar-right">
+                    <div class="status-box">
+                        <span>WS:</span>
+                        <span id="wsStatus" class="badge badge-red"
+                            >DISCONNECTED</span
+                        >
+                    </div>
+
+                    <div class="status-box">
+                        <span>Mode:</span>
+                        <button id="modeBtn" class="mode-btn auto">AUTO</button>
+                    </div>
+
+                    <div class="status-box">
+                        <span>Stream:</span>
+                        <button id="streamBtn" class="stream-btn">PAUSE</button>
+                    </div>
+                </div>
+            </header>
+
+            <section class="kpi-grid">
+                <div class="card metric-card" id="card-hr">
+                    <div class="metric-title">Heart Rate</div>
+                    <div class="metric-value" id="hrValue">--</div>
+                    <div class="metric-unit">bpm</div>
+                </div>
+
+                <div class="card metric-card" id="card-spo2">
+                    <div class="metric-title">SpO₂</div>
+                    <div class="metric-value" id="spo2Value">--</div>
+                    <div class="metric-unit">%</div>
+                </div>
+
+                <div class="card metric-card" id="card-temp">
+                    <div class="metric-title">Temperature</div>
+                    <div class="metric-value" id="tempValue">--</div>
+                    <div class="metric-unit">°C</div>
+                </div>
+
+                <div class="card metric-card" id="card-bp">
+                    <div class="metric-title">Blood Pressure</div>
+                    <div class="metric-value" id="bpValue">-- / --</div>
+                    <div class="metric-unit">mmHg</div>
+                </div>
+
+                <div class="card metric-card" id="card-ecg">
+                    <div class="metric-title">Latest ECG</div>
+                    <div class="metric-value" id="ecgValue">--</div>
+                    <div class="metric-unit">ADC</div>
+                </div>
+
+                <div class="card metric-card" id="card-battery">
+                    <div class="metric-title">Battery</div>
+                    <div class="metric-value" id="batteryValue">--</div>
+                    <div class="metric-unit">%</div>
+                </div>
+            </section>
+
+            <section class="main-grid">
+                <div class="card chart-card">
+                    <div class="section-title">Realtime ECG</div>
+                    <canvas id="ecgChart"></canvas>
+                </div>
+
+                <div class="card alert-card">
+                    <div class="section-title">Active Alerts</div>
+                    <div id="alertList" class="alert-list"></div>
+
+                    <div class="section-title mt-20">System Log</div>
+                    <div id="logList" class="log-list"></div>
+                </div>
+            </section>
+
+            <section class="chart-grid">
+                <div class="card chart-card">
+                    <div class="section-title">Vitals Trend</div>
+                    <canvas id="vitalsChart"></canvas>
+                </div>
+            </section>
+
+            <section class="card manual-panel">
+                <div class="section-title">Manual Control Panel</div>
+                <div class="manual-desc">
+                    AUTO = dashboard tự chạy theo realtime stream. MANUAL = mày
+                    được phép bơm dữ liệu test và can thiệp UI.
+                </div>
+
+                <div class="manual-actions">
+                    <button id="btnFakeNormal">
+                        Send Fake Normal Telemetry
+                    </button>
+                    <button id="btnFakeAbnormal">
+                        Send Fake Abnormal Telemetry
+                    </button>
+                    <button id="btnFakeECG">Send Fake ECG Packet</button>
+                    <button id="btnClearCharts">Clear Charts</button>
+                    <button id="btnReloadAlerts">Reload Alerts</button>
+                </div>
+            </section>
+
+            <section class="card table-card">
+                <div class="section-title">Recent Telemetry</div>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Time</th>
+                                <th>HR</th>
+                                <th>SpO2</th>
+                                <th>Temp</th>
+                                <th>BP</th>
+                                <th>ECG</th>
+                                <th>Signal</th>
+                                <th>Battery</th>
+                            </tr>
+                        </thead>
+                        <tbody id="telemetryTableBody"></tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+
+        <script src="app.js"></script>
+    </body>
+</html>
