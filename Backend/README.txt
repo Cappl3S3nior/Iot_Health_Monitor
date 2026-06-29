@@ -1,26 +1,113 @@
-CÁCH CHẠY BACKEND
+# Backend Setup Guide
 
-Bước 1: Mở MQTT Broker
-- Mở terminal, cd C:\Program Files\mosquitto
-- Chạy lệnh: mosquitto -c my_mosquitto.conf -v
-- Giữ nguyên terminal, không tắt
+Trước khi chạy backend, hãy đảm bảo máy đã cài đặt:
 
-Bước 2: Tạo môi trường ảo (venv)
-- Mở terminal thứ 2, D:\UIT\Bai_tap\DoAn1\Iot_Health_Monitor\Backend
-- Chạy lệnh: python -m venv venv (tạo môi trường ảo)
-- Kích hoạt môi trường ảo: venv\Scripts\activate
-- Cài đặt các gói cần thiết: pip install -r requirements.txt
+* Python 3.x
+* Mosquitto MQTT Broker
+* pip
 
-Bước 3: Chạy Backend
-- cd Iot_Health_Monitor\Backend
-- Chạy lệnh: uvicorn app.main:app --reload
+---
 
-Bước 4: Chạy Dashboard
-- Mở thêm terminal thứ 3, cd Iot_Health_Monitor\Dashboard
-- Chạy lệnh: python -m http.server 5500
-- Truy cập dashboard tại: http://localhost:5500
+## Step 1: Start MQTT Broker
 
-Bước 5: Truyền dữ liệu từ ESP32
-- Cắm ESP32 vào máy tính
-- Mở terminal thứ 4, cd Backend\tools
-- Chạy lệnh: python serial_to_mqtt_bridge.py
+1. Mở Terminal hoặc Command Prompt.
+2. Di chuyển đến thư mục chứa Mosquitto.
+
+```bash
+cd mosquittoS
+```
+
+3. Khởi động MQTT Broker bằng lệnh:
+
+```bash
+mosquitto -c my_mosquitto.conf -v
+```
+
+## Step 2: Create and Activate Python Virtual Environment
+
+Mở **một terminal mới** và chuyển đến thư mục **Backend**.
+
+### Tạo môi trường ảo
+
+```bash
+python -m venv venv
+```
+
+### Kích hoạt môi trường ảo
+
+**Windows**
+
+```bash
+venv\Scripts\activate
+```
+
+**Linux / macOS**
+
+```bash
+source venv/bin/activate
+```
+
+### Cài đặt các thư viện cần thiết
+
+```bash
+pip install -r requirements.txt
+```
+
+---
+
+## Step 3: Run Backend Server
+
+Sau khi cài đặt hoàn tất, chạy backend bằng lệnh:
+
+```bash
+uvicorn app.main:app --reload
+```
+
+Nếu chạy thành công, server sẽ khởi động tại:
+
+```text
+http://127.0.0.1:8000
+```
+
+Tài liệu API (Swagger UI):
+
+```text
+http://127.0.0.1:8000/docs
+```
+
+## Troubleshooting
+
+### ModuleNotFoundError
+
+Nếu gặp lỗi:
+
+```text
+ModuleNotFoundError
+```
+
+Hãy kiểm tra:
+
+* Đã kích hoạt môi trường ảo (`venv`) chưa.
+* Đã chạy:
+
+```bash
+pip install -r requirements.txt
+```
+
+### MQTT Connection Failed
+
+Kiểm tra:
+
+* MQTT Broker đã được khởi động.
+* File `my_mosquitto.conf` đúng cấu hình.
+* Địa chỉ Broker trong backend khớp với Broker đang chạy.
+
+---
+
+### Port Already in Use
+
+Nếu cổng `8000` đang được sử dụng:
+
+```bash
+uvicorn app.main:app --reload --port 8001
+```
